@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Faregate Inspection Checklist</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --line: #dbe3ea;
+      --accent: #0f766e;
+      --accent-2: #0b5ed7;
+      --danger: #b91c1c;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      padding: 14px;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid #e8edf2;
+    }
+
+    .header {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbfc 100%);
+    }
+
+    .title {
+      margin: 0;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child { border-bottom: 0; }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 700px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      body { padding: 10px; }
+      .title { font-size: 21px; }
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #0f172a;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #cfd8e3;
+      border-radius: 14px;
+      background: #fff;
+      padding: 13px 14px;
+      font-size: 16px;
+      color: var(--text);
+      outline: none;
+      appearance: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 3px rgba(11, 94, 215, 0.12);
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+    }
+
+    .btn-now {
+      background: #e0f2fe;
+      color: #075985;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .checklist-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .item label {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      cursor: pointer;
+    }
+
+    .item input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      margin: 2px 0 0;
+      accent-color: var(--accent);
+    }
+
+    .num {
+      display: inline-block;
+      min-width: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: 4px;
+    }
+
+    .item-text {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .actions { grid-template-columns: 1fr; }
+    }
+
+    .helper {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <form class="card" id="inspectionForm">
+      <div class="header">
+        <h1 class="title">Faregate Inspection Checklist</h1>
+        <p class="subtitle">Phone-friendly form for quick fill, screenshot, clear, and repeat</p>
+      </div>
+
+      <div class="section">
+        <div class="grid grid-2">
+          
+
+          <div class="field">
+            <label for="technician">Technician</label>
+            <select id="technician">
+              <option value="">Select technician</option>
+              <option>Abram Gearig (58952)</option>
+              <option>Asanti Hudson (60572)</option>
+              <option>Andy Yang (59116)</option>
+              <option>Charles Lee (59244)</option>
+              <option>Edward Huddleston</option>
+              <option>Eric Park (62789)</option>
+              <option>Francisco Leal (62763)</option>
+              <option>Hector Moreno (62724)</option>
+              <option>Jimmy Zone (59149)</option>
+              <option>John Ha (58627)</option>
+              <option>Jose Juarez (60623)</option>
+              <option>Joshua Almeda (62726)</option>
+              <option>Juan Hernandez (61629)</option>
+              <option>Julio Martinez (62727)</option>
+              <option>Keith Franklin (62790)</option>
+              <option>Rafael Terrazas (61287)</option>
+              <option>Revic Cho (58631)</option>
+              <option>Roger Diaz (60620)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date" />
+          </div>
+
+          <div class="field">
+            <label for="station">Station</label>
+            <select id="station">
+              <option value="">Select station</option>
+
+              <!-- Zone 1 -->
+              <option value="120">North Hollywood (Zone 1)</option>
+              <option value="131">Hollywood/Western (Zone 1)</option>
+              <option value="129">Vermont/Santa Monica (Zone 1)</option>
+              <option value="125">Wilshire/Vermont (Zone 1)</option>
+              <option value="104">Westlake/MacArthur Park (Zone 1)</option>
+              <option value="124">7th Street/Metro Center (Zone 1)</option>
+              <option value="123">Pershing Square (Zone 1)</option>
+              <option value="122">Civic Center (Zone 1)</option>
+              <option value="126">Wilshire/Normandie (Zone 1)</option>
+              <option value="127">Wilshire/Western (Zone 1)</option>
+              <option value="2988">Wilshire/La Cienega (Zone 1)</option>
+              <option value="2987">Wilshire/Fairfax (Zone 1)</option>
+              <option value="2986">Wilshire/La Brea (Zone 1)</option>
+
+              <!-- Zone 2 -->
+              <option value="2978">Pomona (Zone 2)</option>
+              <option value="2977">La Verne (Zone 2)</option>
+              <option value="2976">San Dimas (Zone 2)</option>
+              <option value="2975">Glendora (Zone 2)</option>
+              <option value="168">Allen (Zone 2)</option>
+              <option value="167">Lake (Zone 2)</option>
+              <option value="73">Sierra Madre Villa (Zone 2)</option>
+
+              <!-- Zone 3 -->
+              <option value="144">Firestone (Zone 3)</option>
+              <option value="145">Willowbrook - Rosa Parks (Zone 3)</option>
+              <option value="2941">LAX/MTC (Zone 3)</option>
+              <option value="174">Aviation/Imperial (Zone 3)</option>
+              <option value="171">Douglas (Zone 3)</option>
+              <option value="60">Norwalk (Zone 3)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="array">Array / Entrance</label>
+            <select id="array">
+              <option value="">Select array / entrance</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="timeStarted">Time Started</label>
+            <div class="time-row">
+              <input type="time" id="timeStarted" />
+              <button class="btn btn-now" type="button" data-target="timeStarted">Now</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="timeFinished">Time Finished</label>
+            <div class="time-row">
+              <input type="time" id="timeFinished" />
+              <button class="btn btn-now" type="button" data-target="timeFinished">Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="checklist-title">Checklist</p>
+        <div class="checklist">
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">1.</span>Check if tapping works fine.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">2.</span>Check if the ESGs are working fine.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">3.</span>Check if the QR scanners are working fine.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">4.</span>Check if barriers are well-aligned.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">5.</span>Check if barriers are moving at the right speed.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">6.</span>Check if all maintenance screens are showing right screens.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">7.</span>Check if you log in to maintenance mode once (per station).</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">8.</span>Check the barrier spindles are free from corrosions.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">9.</span>Check if any stickers or decals are intact and not damaged.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">10.</span>Check if all status displays are working fine.</div></label></div>
+          <div class="item"><label><input type="checkbox" /><div class="item-text"><span class="num">11.</span>Upload pictures on the group chat.</div></label></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" placeholder="Enter notes here"></textarea>
+          <div class="helper">Fill it out, take a screenshot, then tap Clear Form for the next site.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="fillStartBtn">Set Start Time Now</button>
+          <button type="button" class="btn btn-primary" id="fillFinishBtn">Set Finish Time Now</button>
+          <button type="reset" class="btn btn-danger" id="clearBtn">Clear Form</button>
+        </div>
+        <div class="helper">
+          You can swap in your full station list and full array list later. This version is already set up for dropdown menus.
+        </div>
+      </div>
+
+      <div class="footer-note">Digital inspection form • mobile-friendly • screenshot-ready</div>
+    </form>
+  </div>
+
+  <script>
+    const arrayData = {
+      "124": ["Figueroa","Hope","Flower"],
+      "125": ["Main","Elevator"],
+      "126": ["Main"],
+      "127": ["Main"],
+      "129": ["North","South"],
+      "131": ["Main"],
+      "144": ["North","South"],
+      "145": ["West","Center Plaza","Transfer Mezzanine - 1","Transfer Mezzanine - 2","North-East","Street Level Elev","South"],
+      "167": ["Main"],
+      "168": ["North East"],
+      "171": ["North","South"],
+      "174": ["East","West","Center"],
+      "60": ["East","West"],
+      "73": ["Main"],
+      "104": ["South"],
+      "120": ["West","East"],
+      "122": ["North","South"],
+      "123": ["South","North"],
+      "2975": ["West","East"],
+      "2976": ["West"],
+      "2977": ["West","East"],
+      "2978": ["West","East - West","East - East"],
+      "2986": ["Main"],
+      "2987": ["Main"],
+      "2988": ["Main"],
+      "2941": ["South","North"]
+    };
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function setCurrentDate() {
+      const d = new Date();
+      document.getElementById('date').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    }
+
+    function setCurrentTime(targetId) {
+      const d = new Date();
+      document.getElementById(targetId).value = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    document.querySelectorAll('[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => setCurrentTime(btn.dataset.target));
+    });
+
+    document.getElementById('fillStartBtn').addEventListener('click', () => setCurrentTime('timeStarted'));
+    document.getElementById('fillFinishBtn').addEventListener('click', () => setCurrentTime('timeFinished'));
+
+    document.getElementById('station').addEventListener('change', function() {
+      const siteId = this.value;
+      const arraySelect = document.getElementById('array');
+      arraySelect.innerHTML = '<option value="">Select array / entrance</option>';
+
+      if (arrayData[siteId]) {
+        arrayData[siteId].forEach(a => {
+          const opt = document.createElement('option');
+          opt.value = a;
+          opt.textContent = a;
+          arraySelect.appendChild(opt);
+        });
+      }
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      setTimeout(() => setCurrentDate(), 0);
+    });
+
+    setCurrentDate();
+  </script>
+</body>
+</html>
