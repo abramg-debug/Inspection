@@ -238,7 +238,7 @@
     <form class="card" id="inspectionForm">
       <div class="header">
         <h1 class="title">Faregate Inspection Checklist</h1>
-        <p class="subtitle">Phone-friendly form for quick fill, screenshot, clear, and repeat</p>
+        
       </div>
 
       <div class="section">
@@ -360,12 +360,13 @@
         <div class="field">
           <label for="notes">Notes</label>
           <textarea id="notes" placeholder="Enter notes here"></textarea>
-          <div class="helper">Fill it out, take a screenshot, then tap Clear Form for the next site.</div>
+          <div class="helper"></div>
         </div>
       </div>
 
       <div class="section">
         <div class="actions">
+          <button type="button" class="btn btn-primary" id="saveImageBtn">Save as Image</button>
           <button type="button" class="btn btn-primary" id="fillStartBtn">Set Start Time Now</button>
           <button type="button" class="btn btn-primary" id="fillFinishBtn">Set Finish Time Now</button>
           <button type="reset" class="btn btn-danger" id="clearBtn">Clear Form</button>
@@ -379,7 +380,8 @@
     </form>
   </div>
 
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
     const arrayData = {
       "124": ["Figueroa","Hope","Flower"],
       "125": ["Main","Elevator"],
@@ -441,6 +443,15 @@
           arraySelect.appendChild(opt);
         });
       }
+    });
+
+    document.getElementById('saveImageBtn').addEventListener('click', () => {
+      html2canvas(document.querySelector('.card')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'inspection.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
     });
 
     document.getElementById('clearBtn').addEventListener('click', () => {
