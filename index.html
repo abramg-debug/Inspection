@@ -416,8 +416,12 @@
       const startInput = document.getElementById('timeStarted');
       const finishInput = document.getElementById('timeFinished');
 
-      if (!startInput.value && !finishInput.value) {
+      if (!startInput.value) {
         startInput.value = currentTimeString();
+      }
+
+      if (!finishInput.value) {
+        finishInput.value = currentTimeString();
       }
 
       const stationSelect = document.getElementById('station');
@@ -426,7 +430,7 @@
           ? stationSelect.options[stationSelect.selectedIndex].text
           : 'station';
 
-      const timeVal = startInput.value || finishInput.value || currentTimeString();
+      const timeVal = finishInput.value || startInput.value || currentTimeString();
 
       const cleanStation = stationText
         .replace(/\(Zone\s*\d+\)/i, '')
