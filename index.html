@@ -78,7 +78,7 @@
     }
 
     textarea{
-      min-height:58px;
+      min-height:120px;
       resize:none;
     }
 
@@ -115,7 +115,8 @@
 
     .checklist{
       display:grid;
-      gap:4px;
+      grid-template-columns:1fr 1fr;
+      gap:6px 10px;
     }
 
     .check-item{
@@ -176,6 +177,7 @@
       select,
       textarea{ font-size:13px; padding:8px 9px; }
       .check-item{ font-size:12px; }
+      .checklist{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -279,17 +281,17 @@
       <div class="section checklist-box">
         <div class="checklist-title">Checklist</div>
         <div class="checklist">
-          <label class="check-item"><input type="checkbox" /> <span>Tap OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>ESG OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>QR OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Barriers aligned & No loose bolts</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Barrier speed OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Customer Displays OK</span></label>
           <label class="check-item"><input type="checkbox" /> <span>Login Completed</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>TAPs</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>ESGs</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>QR Scans</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Barrier alignment &amp; bolts</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Barrier speed</span></label>
           <label class="check-item"><input type="checkbox" /> <span>Corrosion Check</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Decals OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Status Displays OK</span></label>
-          <label class="check-item"><input type="checkbox" /> <span>Pics sent</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Customer Displays</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Status Displays</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Decals</span></label>
+          <label class="check-item"><input type="checkbox" /> <span>Pics (upload to chat)</span></label>
         </div>
       </div>
 
